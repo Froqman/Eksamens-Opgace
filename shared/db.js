@@ -23,6 +23,8 @@ module.exports.sqlConnection = connection;
 
 module.exports.startDB = startDB;
 
+
+//funktion til at poste user i database
 function insert(payload){
     return new Promise((resolve, reject) => {
         const sql = `INSERT INTO [users] (name, birthday, email, gender, country) VALUES (@name, @birthday, @email, @gender, @country)`
@@ -32,22 +34,24 @@ function insert(payload){
                 console.log(err)
             }
         });
+        
         request.addParameter('name', TYPES.VarChar, payload.name)
         request.addParameter('birthday', TYPES.Date, payload.birthday)
         request.addParameter('email', TYPES.VarChar, payload.email)
         request.addParameter('gender', TYPES.VarChar, payload.gender)
         request.addParameter('country', TYPES.VarChar, payload.country)
+    
 
         request.on('requestCompleted', (row) => {
             console.log('User inserted', row);
             resolve('user inserted', row);
-        })
+        });
+        connection.execSql(request)
 
     
     });
     
 }
-
 module.exports.insert = insert;
 
 function select(name){
@@ -67,7 +71,6 @@ function select(name){
             resolve(columns)
         });
         connection.execSql(request)
-        return name
     })
     }
 module.exports.select = select;
