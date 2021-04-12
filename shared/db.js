@@ -24,7 +24,28 @@ module.exports.sqlConnection = connection;
 module.exports.startDB = startDB;
 
 function insert(payload){
-    return payload
+    return new Promise((resolve, reject) => {
+        const sql = `INSERT INTO [users] (name, birthday, email, gender, country) VALUES (@name, @birthday, @email, @gender, @country)`
+        const request = new Request(sql, (err) => {
+            if (err){
+                reject(err)
+                console.log(err)
+            }
+        });
+        request.addParameter('name', TYPES.VarChar, payload.name)
+        request.addParameter('birthday', TYPES.Date, payload.birthday)
+        request.addParameter('email', TYPES.VarChar, payload.email)
+        request.addParameter('gender', TYPES.VarChar, payload.gender)
+        request.addParameter('country', TYPES.VarChar, payload.country)
+
+        request.on('requestCompleted', (row) => {
+            console.log('User inserted', row);
+            resolve('user inserted', row);
+        })
+
+    
+    });
+    
 }
 
 module.exports.insert = insert;
