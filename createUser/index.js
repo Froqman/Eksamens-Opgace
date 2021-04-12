@@ -11,11 +11,5 @@ module.exports = async function (context, req) {
         body: responseMessage
     };
 }
-// test 
-=======
-//tesst
 
 
-// test push arved
-
->>>>>>> 7ca36551eec7c9ef4f555e3e74bebdc253602ab8
