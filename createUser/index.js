@@ -11,4 +11,3 @@ module.exports = async function (context, req) {
         body: responseMessage
     };
 }
-//tesst
