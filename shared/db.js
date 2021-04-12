@@ -70,8 +70,4 @@ function select(name){
         return name
     })
     }
-   
-
-
-
 module.exports.select = select;
