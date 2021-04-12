@@ -13,3 +13,9 @@ module.exports = async function (context, req) {
 }
 
 
+<<<<<<< HEAD
+=======
+// test push arved
+
+//test løkken
+>>>>>>> b8a0551e427c608f5f9ae68112a565e5f7cdcff2
