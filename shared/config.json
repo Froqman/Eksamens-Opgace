@@ -1,0 +1,14 @@
+{
+    "server": "datingserverapp.database.windows.net",
+    "authentication": {
+        "type": "default",
+        "options": {
+            "userName": "Christian",
+            "password": "Qts!77Uip"
+        }
+    },
+    "options": {
+        "encrypt": true,
+        "database": "Eksamensopgave"
+    }
+}

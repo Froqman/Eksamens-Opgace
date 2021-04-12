@@ -1,8 +1,28 @@
-const db = require('/../shared/db')
+const db = require('../shared/db')
 
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
+    try {
+        await db.startDB(); // starter vores database
+    } catch (error){
+        console.log("fejl ved forbindelse til DB", error.message)
+    } 
+    switch (req.method) {
+        case 'GET':
+            await get(context, req);
+            break;
+            case 'POST':
+                await post(context, req);
+                break
+            default:
+                context.res = {
+                    body: "please get or post"
+                };
+                break
+    }
+
+    /*
     const name = (req.query.name || (req.body && req.body.name));
     const birthday = (req.query.birthday || (req.body && req.body.birthday));
     const email = (req.query.email || (req.body && req.body.email));
@@ -17,10 +37,46 @@ module.exports = async function (context, req) {
         const sql_stmt = `insert into users (name, birthday, email, gender, country)
         values ('Christian','1999-06-28','123j@gmail.com','male', 'den')`
 
-    context.res = {
+    */
+
+    //context.res = {
         // status: 200, /* Defaults to 200 */
-        body: responseMessage
-    };
+        
+      //  body: responseMessage
+   // }; 
+
+   //laver vores asynkrone funktioner til vores requests, bruger try/catch til at opfange mulige fejl i koden
+   async function get(context, req){
+       try{
+            let name = req.query.name;
+            let user = await db.select(name)
+            context.res = {
+                body: user
+            };
+       } catch(error){
+            context.res = {
+                status: 400, 
+                body: `No user - ${error.message}`
+            }
+       }
+   }
+
+   async function post(context, req){
+    try{
+            let payload = req.body;
+            await db.insert(payload)
+            context.res = {
+                body: {status: 'Success'}
+            }
+    } catch(error){
+            context.res = {
+                status: 400, 
+                body: error.message
+            }
+
+    }
+}
+
 }
 
 
