@@ -11,7 +11,6 @@ module.exports = async function (context, req) {
         body: responseMessage
     };
 }
-<<<<<<< HEAD
 // test 
 =======
 //tesst
