@@ -16,3 +16,4 @@ module.exports = async function (context, req) {
 
 // test push arved
 
+//test løkken
