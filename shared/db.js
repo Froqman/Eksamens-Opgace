@@ -27,7 +27,7 @@ module.exports.startDB = startDB;
 //funktion til at poste user i database
 function insert(payload){
     return new Promise((resolve, reject) => {
-        const sql = `INSERT INTO [users] (id, name, birthday, email, gender, country) VALUES (@id, @name, @birthday, @email, @gender, @country)`
+        const sql = `INSERT INTO [users] (name, birthday, email, gender, country) VALUES (@name, @birthday, @email, @gender, @country)`
         const request = new Request(sql, (err) => {
             if (err){
                 reject(err)
@@ -35,7 +35,6 @@ function insert(payload){
                 
             }
         });
-        request.addParameter('id', TYPES.Int, payload.id)
         request.addParameter('name', TYPES.VarChar, payload.name)
         request.addParameter('birthday', TYPES.Date, payload.birthday)
         request.addParameter('email', TYPES.VarChar, payload.email)

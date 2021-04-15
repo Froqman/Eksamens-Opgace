@@ -3,7 +3,6 @@ var form = document.getElementById("form")
 form.addEventListener('submit', function(e) {
     e.preventDefault()
 
-    var id = document.getElementById("id").value
     var name = document.getElementById("name").value
     var birthday = document.getElementById("birthday").value
     var email = document.getElementById("email").value
@@ -15,7 +14,6 @@ form.addEventListener('submit', function(e) {
         mode: 'no-cors',
         method: 'POST',
         body: JSON.stringify({
-            id: id,
             name: name,
             birthday: birthday,
             email: email,
