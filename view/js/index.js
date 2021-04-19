@@ -1,4 +1,4 @@
-var form = document.getElementById("form")
+var form = document.getElementById("create")
 
 form.addEventListener('submit', function(e) {
     e.preventDefault()
@@ -8,6 +8,7 @@ form.addEventListener('submit', function(e) {
     var email = document.getElementById("email").value
     var gender = document.getElementById("gender").value
     var country = document.getElementById("country").value
+    var hashed_password = document.getElementById("hashed_password").value
   
 
     fetch("http://localhost:7071/api/createUser", {
@@ -19,6 +20,7 @@ form.addEventListener('submit', function(e) {
             email: email,
             gender: gender, 
             country: country,
+            hashed_password: hashed_password,
            
         }), 
         headers: {
@@ -55,4 +57,35 @@ getButton.addEventListener("click", function(){
         .catch(function (err){
             console.log(err);
         });
+})
+
+var login = document.getElementById("login")
+
+login.addEventListener('submit', function(e) {
+    e.preventDefault()
+
+    var email = document.getElementById("email").value
+    var hashed_password = document.getElementById("hashed_password").value
+  
+
+    fetch("http://localhost:7071/api/login", {
+        mode: 'no-cors',
+        method: 'POST',
+        body: JSON.stringify({
+            email: email,
+            hashed_password: hashed_password,
+           
+        }), 
+        headers: {
+            "Content-Type": "application/json; charset-UTF-8"
+        }
+    })
+    .then((response) => {
+        return response.json()
+    })
+    .then((data) => {
+        console.log(data)
+    }).catch((err) =>{
+        console.log(err)
+    })
 })

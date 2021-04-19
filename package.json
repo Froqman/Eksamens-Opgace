@@ -7,6 +7,7 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "tedious": "^11.0.7"
   },
