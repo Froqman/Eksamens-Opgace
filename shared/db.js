@@ -54,7 +54,7 @@ function insert(payload){
             country: payload.country,
             hashed_password: payload.hashed_password
         })
-        console.log(newUser.name)
+        //console.log(newUser.name)
 
         request.on('requestCompleted', (row) => {
             console.log('User inserted', row);
@@ -88,11 +88,11 @@ function select(name){
     }
 module.exports.select = select;
 
-
+//function til at logge ind på sin profil
 function login(email, hashed_password){
     return new Promise((resolve, reject) => {
         //const sql = 'SELECT email FROM Register WHERE email = @email'
-        const sql = 'SELECT name FROM users WHERE email = @email AND hashed_password = @hashed_password'
+        const sql = 'SELECT id FROM users WHERE email = @email AND hashed_password = @hashed_password'
         const request = new Request(sql, (err, rowcount) => {
             if (err){
                 reject(err)
