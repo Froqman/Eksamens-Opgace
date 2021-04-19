@@ -92,7 +92,7 @@ module.exports.select = select;
 function login(email, hashed_password){
     return new Promise((resolve, reject) => {
         //const sql = 'SELECT email FROM Register WHERE email = @email'
-        const sql = 'SELECT name FROM users WHERE email = @email AND hashed_password = @hashed_password'
+        const sql = 'SELECT id FROM users WHERE email = @email AND hashed_password = @hashed_password'
         const request = new Request(sql, (err, rowcount) => {
             if (err){
                 reject(err)

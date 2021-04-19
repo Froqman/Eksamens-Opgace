@@ -61,7 +61,7 @@ getButton.addEventListener("click", function(){
 
 var login = document.getElementById("login")
 
-login.addEventListener('submit', function(e) {
+login.addEventListener('login1', function(e) {
     e.preventDefault()
 
     var email = document.getElementById("email").value
