@@ -58,10 +58,11 @@ module.exports = async function (context, req) {
                 let email = req.query.email;
                 let hashed_password = req.query.hashed_password;
                     await db.login(email, hashed_password)
-                    context.res = {
-                        body: {status: 'Success'}
-                    }
-            } catch(error){
+                    context.res.status(302)
+                    .set('location','http://localhost:7071/dashboard')
+                    .send();
+            }
+             catch(error){
                     context.res = {
                         status: 400, 
                         body: error.message
