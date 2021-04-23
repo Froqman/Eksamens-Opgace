@@ -41,8 +41,8 @@ module.exports = async function (context, req) {
     async function get(context, req){
         try{
              let email = req.query.email;
-             let hashed_password = req.query.hashed_password;
-             let user = await db.login(email, hashed_password)
+             let hashedPassword = req.query.hashedPassword;
+             let user = await db.login(email, hashedPassword)
              context.res = {
                  body: user
              };
@@ -56,8 +56,8 @@ module.exports = async function (context, req) {
     async function post(context, req){
             try{
                 let email = req.query.email;
-                let hashed_password = req.query.hashed_password;
-                    await db.login(email, hashed_password)
+                let hashedPassword = req.query.hashedPassword;
+                    await db.login(email, hashedPassword)
                     context.res.status(302)
                     .set('location','http://localhost:7071/dashboard')
                     .send();

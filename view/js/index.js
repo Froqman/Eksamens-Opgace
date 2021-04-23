@@ -1,3 +1,5 @@
+//opretter en funktion der kan oprette en user i vores db
+
 var form = document.getElementById("create")
 
 form.addEventListener('submit', function(e) {
@@ -8,7 +10,7 @@ form.addEventListener('submit', function(e) {
     var email = document.getElementById("email").value
     var gender = document.getElementById("gender").value
     var country = document.getElementById("country").value
-    var hashed_password = document.getElementById("hashed_password").value
+    var hashedPassword = document.getElementById("hashedPassword").value
   
 
     fetch("http://localhost:7071/api/createUser", {
@@ -20,7 +22,7 @@ form.addEventListener('submit', function(e) {
             email: email,
             gender: gender, 
             country: country,
-            hashed_password: hashed_password,
+            hashedPassword: hashedPassword,
            
         }), 
         headers: {
@@ -37,6 +39,7 @@ form.addEventListener('submit', function(e) {
     })
 })
 
+//laver en funktion der kan kalde en user tilbage, ved brug af et navn som værdi
 var getButton = document.getElementById("getUsers")
 
 getButton.addEventListener("click", function(){
@@ -59,13 +62,14 @@ getButton.addEventListener("click", function(){
         });
 })
 
+
 var login = document.getElementById("login")
 
 login.addEventListener('login1', function(e) {
     e.preventDefault()
 
     var email = document.getElementById("email").value
-    var hashed_password = document.getElementById("hashed_password").value
+    var password = document.getElementById("password").value
   
 
     fetch("http://localhost:7071/api/login", {
@@ -73,7 +77,7 @@ login.addEventListener('login1', function(e) {
         method: 'POST',
         body: JSON.stringify({
             email: email,
-            hashed_password: hashed_password,
+            password: password,
            
         }), 
         headers: {

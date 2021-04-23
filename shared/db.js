@@ -29,7 +29,7 @@ module.exports.startDB = startDB;
 //funktion til at poste user i database
 function insert(payload){
     return new Promise((resolve, reject) => {
-        const sql = `INSERT INTO [users] (name, birthday, email, gender, country, hashed_password) VALUES (@name, @birthday, @email, @gender, @country, @hashed_password)`
+        const sql = `INSERT INTO [users] (name, birthday, email, gender, country, hashedPassword) VALUES (@name, @birthday, @email, @gender, @country, @hashedPassword)`
         const request = new Request(sql, (err) => {
             if (err){
                 reject(err)
@@ -44,16 +44,18 @@ function insert(payload){
         request.addParameter('email', TYPES.VarChar, payload.email)
         request.addParameter('gender', TYPES.VarChar, payload.gender)
         request.addParameter('country', TYPES.VarChar, payload.country)
-        request.addParameter('hashed_password', TYPES.VarChar, payload.hashed_password)
+        request.addParameter('hashedPassword', TYPES.VarChar, payload.hashedPassword)
         
+        /*
         const newUser = new user ({
             name: payload.name, 
             birthday: payload.birthday,
             email: payload.email,
             gender: payload.gender,
             country: payload.country,
-            hashed_password: payload.hashed_password
+            hashedPassword: payload.hashedPassword
         })
+        */
         //console.log(newUser.name)
 
         request.on('requestCompleted', (row) => {
@@ -89,10 +91,10 @@ function select(name){
 module.exports.select = select;
 
 //function til at logge ind på sin profil
-function login(email, hashed_password){
+function login(email, hashedPassword){
     return new Promise((resolve, reject) => {
         //const sql = 'SELECT email FROM Register WHERE email = @email'
-        const sql = 'SELECT id FROM users WHERE email = @email AND hashed_password = @hashed_password'
+        const sql = 'SELECT id FROM users WHERE email = @email AND hashedPassword = @hashedPassword'
         const request = new Request(sql, (err, rowcount) => {
             if (err){
                 reject(err)
@@ -102,7 +104,7 @@ function login(email, hashed_password){
         }
     });
     request.addParameter('email', TYPES.VarChar, email)
-    request.addParameter('hashed_password', TYPES.VarChar, hashed_password)
+    request.addParameter('hashedPassword', TYPES.VarChar, hashedPassword)
 
     request.on('row', (columns) => {
         resolve(columns)
