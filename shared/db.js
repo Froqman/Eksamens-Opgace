@@ -35,7 +35,7 @@ function update(payload) {
       return `SET ${key} = ${payload[key]},`;
     });
     console.log(updateStatements);
-    const sql = `UPDATE [users] name, birthday, email, gender, country, hashed_password) VALUES (@name, @birthday, @email, @gender, @country, @hashed_password)`;
+    const sql = `UPDATE [user] name, birthday, email, gender, country, hashed_password) VALUES (@name, @birthday, @email, @gender, @country, @hashed_password)`;
     const request = new Request(sql, (err) => {
       if (err) {
         reject(err);
@@ -61,7 +61,7 @@ module.exports.update = update;
 //funktion til at poste user i database
 function insert(payload) {
   return new Promise((resolve, reject) => {
-    const sql = `INSERT INTO [users] (name, birthday, email, gender, country, hashed_password) VALUES (@name, @birthday, @email, @gender, @country, @hashed_password)`;
+    const sql = `INSERT INTO [user] (name, birthday, email, gender, hashed_password) VALUES (@name, @birthday, @email, @gender, @hashed_password)`;
     const request = new Request(sql, (err) => {
       if (err) {
         reject(err);
@@ -73,7 +73,7 @@ function insert(payload) {
     request.addParameter("birthday", TYPES.Date, payload.birthday);
     request.addParameter("email", TYPES.VarChar, payload.email);
     request.addParameter("gender", TYPES.VarChar, payload.gender);
-    request.addParameter("country", TYPES.VarChar, payload.country);
+    // request.addParameter("country", TYPES.VarChar, payload.country);
     request.addParameter(
       "hashed_password",
       TYPES.VarChar,
@@ -102,7 +102,7 @@ module.exports.insert = insert;
 
 function select() {
   return new Promise((resolve, reject) => {
-    const sql = "SELECT * FROM [users]";
+    const sql = "SELECT * FROM [user]";
     const request = new Request(sql, (err, rowcount) => {
       if (err) {
         reject(err);
@@ -133,7 +133,7 @@ function login(email, hashed_password) {
   return new Promise((resolve, reject) => {
     //const sql = 'SELECT email FROM Register WHERE email = @email'
     const sql =
-      "SELECT id FROM users WHERE email = @email AND hashed_password = @hashed_password";
+      "SELECT id FROM [user] WHERE email = @email AND hashed_password = @hashed_password";
     const request = new Request(sql, (err, rowcount) => {
       if (err) {
         reject(err);
