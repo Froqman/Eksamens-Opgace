@@ -57,14 +57,16 @@ async function post(context, req) {
     let email = req.query.email;
     let hashed_password = req.query.hashed_password;
     await db.login(email, hashed_password);
-    context.res
-      .status(302)
-      .set("location", "http://localhost:7071/dashboard")
-      .send();
+    context.res = {
+      body: user,
+    };
+      //.status(200)
+      // .set("location", "http://localhost:7071/dashboard")
+      // .send();
   } catch (error) {
     context.res = {
       status: 400,
-      body: error.message,
+      body: `No way Jose - ${error.message}`,
     };
   }
 }
